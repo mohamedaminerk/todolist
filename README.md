@@ -5,6 +5,7 @@ A full-stack Task Management Web Application developed using **Spring Boot** for
 The application allows authenticated users to securely manage their tasks through a modern web interface. It provides user authentication, JWT-based security, task CRUD operations, database integration, and communication between the Angular frontend and Spring Boot REST API.
 
 ---
+<img width="1899" height="1079" alt="Capture d&#39;écran 2026-07-20 091029" src="https://github.com/user-attachments/assets/57a71a82-1fa8-4350-99c6-1422b4a5ffc9" />
 
 ## 🚀 Features
 
