@@ -1,0 +1,448 @@
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  background: #f8f7ff;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.sidebar {
+  width: 260px;
+  background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  flex-shrink: 0;
+  min-height: 100vh;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.brand-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-name {
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.sidebar-nav {
+  flex-grow: 1;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  margin-bottom: 0.25rem;
+  transition: all 0.2s;
+  font-size: 0.875rem;
+}
+
+.nav-item:hover,
+.nav-item.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.nav-badge {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.nav-badge.pending {
+  background: rgba(255, 165, 0, 0.3);
+  color: #ffa500;
+}
+
+.nav-badge.done {
+  background: rgba(72, 199, 142, 0.3);
+  color: #48c78e;
+}
+
+.sidebar-user {
+  margin-top: auto;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+
+.user-info {
+  flex: 1;
+  overflow: hidden;
+}
+
+.user-name {
+  display: block;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.logout-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  padding: 0.25rem;
+  transition: color 0.2s;
+}
+
+.logout-btn:hover {
+  color: #ff6b6b;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.page-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 0.25rem;
+}
+
+.page-subtitle {
+  color: #9ca3af;
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+:host ::ng-deep .add-btn {
+  background: linear-gradient(135deg, #667eea, #764ba2) !important;
+  border: none !important;
+  border-radius: 10px !important;
+  font-weight: 600 !important;
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+.stat-card {
+  border-radius: 16px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.stat-card.purple {
+  background: linear-gradient(135deg, #667eea20, #764ba220);
+  border: 1px solid #667eea30;
+}
+
+.stat-card.orange {
+  background: linear-gradient(135deg, #f6954620, #f64f5920);
+  border: 1px solid #f6954630;
+}
+
+.stat-card.green {
+  background: linear-gradient(135deg, #48c78e20, #06d6a020);
+  border: 1px solid #48c78e30;
+}
+
+.stat-card.blue {
+  background: linear-gradient(135deg, #3b82f620, #6366f120);
+  border: 1px solid #3b82f630;
+}
+
+.stat-number {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #1a1a2e;
+}
+
+.stat-card.purple .stat-number { color: #667eea; }
+.stat-card.orange .stat-number { color: #f69546; }
+.stat-card.green .stat-number { color: #48c78e; }
+.stat-card.blue .stat-number { color: #3b82f6; }
+
+.stat-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.progress-wrap {
+  margin-bottom: 1.5rem;
+}
+
+.progress-track {
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  border-radius: 100px;
+  transition: width 0.5s ease;
+}
+
+.search-bar {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  font-size: 0.875rem;
+}
+
+.search-input {
+  width: 100%;
+  padding-left: 2.75rem !important;
+  border-radius: 12px !important;
+  border: 1px solid #e5e7eb !important;
+  background: white !important;
+}
+
+.todo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: white;
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+  border: 1px solid #f0f0f0;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.todo-item:hover {
+  border-color: #667eea40;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.1);
+  transform: translateY(-1px);
+}
+
+.todo-item.completed {
+  opacity: 0.6;
+}
+
+.custom-checkbox {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid #d1d5db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.custom-checkbox.checked {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-color: transparent;
+}
+
+.custom-checkbox.checked i {
+  color: white;
+  font-size: 0.7rem;
+}
+
+.todo-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  overflow: hidden;
+}
+
+.todo-title {
+  font-weight: 600;
+  color: #1a1a2e;
+  font-size: 0.9rem;
+}
+
+.todo-item.completed .todo-title {
+  text-decoration: line-through;
+  color: #9ca3af;
+}
+
+.todo-description {
+  font-size: 0.8rem;
+  color: #667280;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.todo-date {
+  font-size: 0.7rem;
+  color: #d1d5db;
+}
+
+.todo-actions {
+  display: flex;
+  gap: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.todo-item:hover .todo-actions {
+  opacity: 1;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #9ca3af;
+}
+
+.skeleton-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: white;
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+}
+
+.dialog-form .field {
+  margin-bottom: 1.25rem;
+}
+
+.dialog-form label {
+  display: block;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.field-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.field-row .field {
+  flex: 1;
+}
+
+:host ::ng-deep .save-btn {
+  background: linear-gradient(135deg, #667eea, #764ba2) !important;
+  border: none !important;
+  border-radius: 8px !important;
+}
+
+::ng-deep .p-dialog,
+::ng-deep .todo-dialog {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 16px !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1) !important;
+}
+
+::ng-deep .p-dialog .p-dialog-header {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  padding: 1.5rem 1.5rem 0.5rem 1.5rem !important;
+  border-top-left-radius: 16px !important;
+  border-top-right-radius: 16px !important;
+  font-weight: 700;
+}
+
+::ng-deep .p-dialog .p-dialog-content {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  padding: 1rem 1.5rem !important;
+}
+
+::ng-deep .p-dialog .p-dialog-footer,
+::ng-deep .todo-dialog .p-dialog-footer {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  padding: 0.5rem 1.5rem 1.5rem 1.5rem !important;
+  border-bottom-left-radius: 16px !important;
+  border-bottom-right-radius: 16px !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  gap: 12px !important;
+}
+
+::ng-deep .p-dialog-mask {
+  background-color: rgba(26, 26, 46, 0.7) !important;
+}
+
+::ng-deep .p-toast .p-toast-message {
+  background-color: #ffffff !important;
+  opacity: 1 !important;
+  border: 1px solid #e5e7eb !important;
+}

@@ -1,0 +1,96 @@
+.auth-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f64f59 0%, #c471ed 50%, #12c2e9 100%);
+  padding: 1rem;
+}
+.auth-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+.auth-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.auth-logo {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #f64f59, #c471ed);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+}
+.auth-logo i {
+  font-size: 2rem;
+  color: white;
+}
+.auth-header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 0.5rem;
+}
+.auth-header p {
+  color: #6c757d;
+  margin: 0;
+}
+.field {
+  margin-bottom: 1.25rem;
+}
+.field label {
+  display: block;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+/* Fix largeur input password + icône œil */
+:host ::ng-deep .p-password {
+  width: 100%;
+  display: block;
+  position: relative;
+}
+:host ::ng-deep .p-password input {
+  width: 100%;
+  padding-right: 2.5rem;
+  box-sizing: border-box;
+}
+:host ::ng-deep .p-password-toggle-icon,
+:host ::ng-deep .p-password-icon {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6c757d;
+  cursor: pointer;
+}
+
+:host ::ng-deep .auth-btn {
+  background: linear-gradient(135deg, #f64f59, #c471ed) !important;
+  border: none !important;
+  border-radius: 10px !important;
+  padding: 0.75rem !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  margin-top: 0.5rem;
+}
+.auth-switch {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: #6c757d;
+  font-size: 0.875rem;
+}
+.auth-switch a {
+  color: #c471ed;
+  font-weight: 600;
+  text-decoration: none;
+}

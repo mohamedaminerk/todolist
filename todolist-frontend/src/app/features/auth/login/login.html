@@ -1,0 +1,56 @@
+<p-toast></p-toast>
+
+<div class="auth-wrapper">
+  <div class="auth-card">
+
+    <div class="auth-header">
+      <div class="auth-logo">
+        <img src="logo.svg" alt="TaskFlow Logo" />
+      </div>
+
+      <h1>Welcome back</h1>
+      <p>Sign in to manage your tasks</p>
+    </div>
+
+    <div class="auth-form">
+
+      <div class="field">
+        <label for="username">Username</label>
+        <input
+          pInputText
+          id="username"
+          [(ngModel)]="username"
+          placeholder="Enter your username"
+          class="w-full"
+        />
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <p-password
+          [(ngModel)]="password"
+          inputId="password"
+          placeholder="Enter your password"
+          [feedback]="false"
+          [toggleMask]="true"
+          styleClass="w-full"
+          inputStyleClass="w-full"
+        ></p-password>
+      </div>
+
+      <p-button
+        label="Sign in"
+        icon="pi pi-sign-in"
+        [loading]="loading"
+        (onClick)="login()"
+        styleClass="w-full auth-btn"
+      ></p-button>
+
+      <p class="auth-switch">
+        Don't have an account?
+        <a routerLink="/register">Create one</a>
+      </p>
+
+    </div>
+  </div>
+</div>

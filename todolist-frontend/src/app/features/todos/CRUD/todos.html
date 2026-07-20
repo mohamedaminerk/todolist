@@ -1,0 +1,189 @@
+<p-toast></p-toast>
+
+<div class="app-container">
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">
+        <img src="logo.svg" alt="TaskFlow Logo" style="width: 100%; height: 100%; object-fit: contain;" />
+      </div>
+      <span class="brand-name">TaskFlow</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="nav-item" [class.active]="filterStatus === 'all'" (click)="filterStatus = 'all'">
+        <i class="pi pi-list"></i>
+        <span>All Tasks</span>
+        <span class="nav-badge">{{ todos.length }}</span>
+      </a>
+      <a class="nav-item" [class.active]="filterStatus === 'pending'" (click)="filterStatus = 'pending'">
+        <i class="pi pi-clock"></i>
+        <span>Pending</span>
+        <span class="nav-badge pending">{{ pendingCount }}</span>
+      </a>
+      <a class="nav-item" [class.active]="filterStatus === 'completed'" (click)="filterStatus = 'completed'">
+        <i class="pi pi-check-circle"></i>
+        <span>Completed</span>
+        <span class="nav-badge done">{{ completedCount }}</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-user">
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <div class="user-avatar">{{ userInitials }}</div>
+        <div class="user-info">
+          <span class="user-name">{{ currentUser?.username }}</span>
+        </div>
+      </div>
+      <button type="button" (click)="logout()" class="logout-btn">Sign Out</button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="page-header">
+      <div>
+        <h1 class="page-title">My Tasks</h1>
+        <p class="page-subtitle">{{ today | date:'EEEE, MMMM d, y' }}</p>
+      </div>
+      <p-button
+        label="Add task"
+        icon="pi pi-plus"
+        (onClick)="openCreateDialog()"
+        styleClass="add-btn"></p-button>
+    </header>
+
+    <div class="stats-row">
+      <div class="stat-card purple">
+        <span class="stat-number">{{ todos.length }}</span>
+        <span class="stat-label">Total</span>
+      </div>
+      <div class="stat-card orange">
+        <span class="stat-number">{{ pendingCount }}</span>
+        <span class="stat-label">Pending</span>
+      </div>
+      <div class="stat-card green">
+        <span class="stat-number">{{ completedCount }}</span>
+        <span class="stat-label">Done</span>
+      </div>
+      <div class="stat-card blue">
+        <span class="stat-number">{{ progressPercent }}%</span>
+        <span class="stat-label">Progress</span>
+      </div>
+    </div>
+
+    <div class="progress-wrap" *ngIf="todos.length > 0">
+      <div class="progress-track">
+        <div class="progress-fill" [style.width.%]="progressPercent"></div>
+      </div>
+    </div>
+
+    <div class="search-bar">
+      <i class="pi pi-search search-icon"></i>
+      <input
+        pInputText
+        [(ngModel)]="searchQuery"
+        placeholder="Search tasks..."
+        class="search-input"
+      />
+    </div>
+
+    <div class="todo-list" *ngIf="!loading; else skeleton">
+      <div *ngIf="filteredTodos.length === 0" class="empty-state">
+        <i class="pi pi-inbox"></i>
+        <p>No tasks found</p>
+        <p-button label="Add your first task" icon="pi pi-plus" (onClick)="openCreateDialog()" styleClass="p-button-outlined"></p-button>
+      </div>
+
+      <div
+        *ngFor="let todo of filteredTodos; trackBy: trackById"
+        class="todo-item"
+        [class.completed]="todo.status"
+      >
+        <div class="todo-check">
+          <div
+            class="custom-checkbox"
+            [class.checked]="todo.status"
+            (click)="toggleComplete(todo)"
+          >
+            <i class="pi pi-check" *ngIf="todo.status"></i>
+          </div>
+        </div>
+
+        <div class="todo-content" (click)="openEditDialog(todo)">
+          <span class="todo-title">{{ todo.title }}</span>
+          <span class="todo-description" *ngIf="todo.description">{{ todo.description }}</span>
+          <span class="todo-date">{{ todo.startDate | date:'MMM d' }} → {{ todo.endDate | date:'MMM d, y' }}</span>
+        </div>
+
+        <div class="todo-actions" style="display: flex; gap: 10px; align-items: center;">
+          <button type="button"
+                  (click)="openEditDialog(todo); $event.stopPropagation()"
+                  style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 6px 14px; cursor: pointer; color: #2563eb; font-weight: 600; font-size: 14px;">
+            Edit
+          </button>
+          <button type="button"
+                  (click)="confirmDelete(todo); $event.stopPropagation()"
+                  style="background: #fef2f2; border: 1px solid #fee2e2; border-radius: 8px; padding: 6px 14px; cursor: pointer; color: #dc2626; font-weight: 600; font-size: 14px;">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #skeleton>
+      <div class="todo-list">
+        <div class="skeleton-item" *ngFor="let i of [1,2,3,4,5]">
+          <p-skeleton shape="circle" size="2rem"></p-skeleton>
+          <div style="flex:1">
+            <p-skeleton width="60%" height="1rem" styleClass="mb-2"></p-skeleton>
+            <p-skeleton width="40%" height="0.75rem"></p-skeleton>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </main>
+</div>
+
+<p-dialog
+  [(visible)]="dialogVisible"
+  [header]="editingTodo ? 'Edit task' : 'New task'"
+  [modal]="true"
+  [draggable]="false"
+  styleClass="todo-dialog"
+  [style]="{ width: '480px' }"
+>
+  <div class="dialog-form">
+    <div class="field">
+      <label>Title <span class="required">*</span></label>
+      <input pInputText [(ngModel)]="form.title" placeholder="What needs to be done?" class="w-full" autofocus />
+    </div>
+    <div class="field">
+      <label>Description</label>
+      <textarea pTextarea [(ngModel)]="form.description" placeholder="Add details (optional)" rows="3" class="w-full"></textarea>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Start date</label>
+        <input pInputText type="date" [(ngModel)]="form.startDate" class="w-full" />
+      </div>
+      <div class="field">
+        <label>End date</label>
+        <input pInputText type="date" [(ngModel)]="form.endDate" class="w-full" />
+      </div>
+    </div>
+  </div>
+  <ng-template #footer>
+    <p-button label="Cancel" icon="pi pi-times" (onClick)="dialogVisible = false" styleClass="p-button-text"></p-button>
+    <p-button [label]="editingTodo ? 'Save changes' : 'Create task'" icon="pi pi-check" [loading]="saving" (onClick)="saveTask()" styleClass="save-btn"></p-button>
+  </ng-template>
+</p-dialog>
+
+<div *ngIf="deleteDialogVisible" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 9999;">
+  <div style="background: white; padding: 24px; border-radius: 12px; width: 100%; max-width: 400px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);">
+    <h3 style="margin-top: 0; color: #1f2937; font-size: 1.25rem;">Confirm Delete</h3>
+    <p style="color: #4b5563; margin: 16px 0;">Are you sure you want to delete "{{ todoToDelete?.title }}"?</p>
+    <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px;">
+      <button type="button" (click)="deleteDialogVisible = false" style="background: transparent; border: 1px solid #d1d5db; padding: 8px 16px; cursor: pointer; color: #4b5563;">Cancel</button>
+      <button type="button" (click)="executeDelete()" style="background: #ef4444; border: none; padding: 8px 16px; cursor: pointer; color: white;">Delete</button>
+    </div>
+  </div>
+</div>
